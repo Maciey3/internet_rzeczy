@@ -1,0 +1,32 @@
+{
+    "1": {
+        "request": "HTTP",
+        "title": "Komputer 💻",
+        "address": "http://127.0.0.1:9002/receive",
+        "send_frequency": "3",
+        "MQTT_topic": "",
+        "dataset": "temperatures.csv",
+        "status": false,
+        "port": ""
+    },
+    "5": {
+        "request": "HTTP",
+        "title": "Termometr 🌡",
+        "address": "http://127.0.0.1:8002/receive",
+        "send_frequency": "7",
+        "MQTT_topic": "",
+        "dataset": "temperatures.csv",
+        "status": false,
+        "port": ""
+    },
+    "6": {
+        "request": "HTTP",
+        "title": "Myszka 🖱",
+        "address": "http://127.0.0.1:8002/collect",
+        "send_frequency": "5",
+        "MQTT_topic": "",
+        "dataset": "temperatures.csv",
+        "status": false,
+        "port": ""
+    }
+}

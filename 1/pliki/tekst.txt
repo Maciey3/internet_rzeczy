@@ -1,0 +1,9 @@
+--0de4097ae2783a7048bb80f671e4b0a2
+Content-Disposition: form-data; name="file"; filename="tekst.txt"
+
+Droga Aniu!
+Wszystko u mnie w porządku
+Nie martw się o mnie
+Lubię jeść lody i konie
+
+--0de4097ae2783a7048bb80f671e4b0a2--

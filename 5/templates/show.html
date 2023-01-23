@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles/style.css')}}">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="main">
+        {% include 'nav.html' %}
+        <main class="m-auto bg-blue-600 w-3/5 mt-8 text-white rounded-xl shadow-2x grid grid-cols-1 justify-center items-center gap-12 py-12">
+            <p class="text-center text-white text-3xl">Title: <span class="font-bold">{{cfg['title']}}</span></p>
+            <p class="text-center text-white text-3xl">Request: <span class="font-bold">{{cfg['request']}}</span></p>
+            <p class="text-center text-white text-3xl">Address: <span class="font-bold">{{cfg['address']}}</span></p>
+            <p class="text-center text-white text-3xl">Send Frequency: <span class="font-bold">{{cfg['send_frequency']}}</span></p>
+            <p class="text-center text-white text-3xl">MQTT Topic (optional): <span class="font-bold">{{cfg['MQTT_topic']}}</span></p>
+            <p class="text-center text-white text-3xl">Dataset: <span class="font-bold">{{cfg['dataset']}}</span></p>
+            <a class="w-1/5 m-auto" href="{{url_for('edit', id=id)}}">
+                <button class="button w-full bg-white text-blue-500 h-10 rounded-xl font-bold">Edytuj</button>
+            </a>
+        </main>
+
+    </div>
+</body>
+</html>

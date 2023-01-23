@@ -1,0 +1,38 @@
+body{
+    background: linear-gradient(to top, #b8c9ff, #f9f9f9);
+    background-attachment: fixed;
+}
+
+.customHr {
+    /* display: block; */
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; 
+    width: 80vw;
+    margin: auto;
+}
+
+.customHr > span {
+    position: relative;
+    display: inline-block;
+}
+
+.customHr > span:before,
+.customHr > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 100vw;
+    height: 1px;
+    background: #9d9d9d;
+}
+
+.customHr > span:before {
+    right: 100%;
+    margin-right: 10px;
+}
+
+.customHr > span:after {
+    left: 100%;
+    margin-left: 10px;
+}

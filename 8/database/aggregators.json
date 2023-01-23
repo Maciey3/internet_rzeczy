@@ -1,0 +1,10 @@
+{
+    "1": {
+        "title": "Agregator 1",
+        "address": "http://127.0.0.1:5000/receive",
+        "send_frequency": "5",
+        "destination_form": "avg",
+        "status": false,
+        "port": ""
+    }
+}

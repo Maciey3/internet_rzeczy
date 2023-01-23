@@ -1,0 +1,16 @@
+{
+    "options": {
+        "request": "HTTP",
+        "address": "http://127.0.0.1:5000/data",
+        "send_frequency": 15,
+        "live_time": 30,
+        "MQTT_topic": "Different Datasets For Test4",
+        "datasets": {
+            "datasets/beach-water-quality-automated-sensors-1.csv": 0,
+            "datasets/Dollar billionaires per million people.csv": 0,
+            "datasets/earnings.csv": 0,
+            "datasets/surnames_en.csv": 0,
+            "datasets/zip-code-breakdowns-1.csv": 0
+        }
+    }
+}

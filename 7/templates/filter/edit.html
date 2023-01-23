@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles/style.css')}}">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="main">
+        {% include 'nav.html' %}
+        <main class="m-auto bg-blue-600 w-3/5 my-8 text-white rounded-xl shadow-2x grid grid-cols-1 justify-center items-center gap-12 py-12 text-black font-bold">
+            <form class="contents" action="{{ url_for('filterUpdate') }}" method="POST">
+                <input type="hidden" value="{{id}}" name="id"/>
+                <input class="h-8 w-2/5 m-auto rounded-xl text-center" type="text" placeholder="Title" name="title" value="{{cfg['title']}}"/>
+                <input class="h-8 w-2/5 m-auto rounded-xl text-center" type="text" placeholder="Address" name="address" value="{{cfg['address']}}"/>
+                <input class="h-8 w-2/5 m-auto rounded-xl text-center" type="text" placeholder="Filter target" name="filter_target" value="{{cfg['filter_target']}}"/>
+                <button class="button m-auto w-1/5 bg-white text-blue-500 h-10 rounded-xl font-bold" type="submit">Prześlij</button>
+            </form>
+        </main>
+
+    </div>
+</body>
+</html>

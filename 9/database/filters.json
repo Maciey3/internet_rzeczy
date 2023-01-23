@@ -1,0 +1,9 @@
+{
+    "1": {
+        "title": "Filter 1",
+        "address": "http://127.0.0.1:5000/receive",
+        "filter_target": "date",
+        "status": true,
+        "port": 9002
+    }
+}

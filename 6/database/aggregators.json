@@ -1,0 +1,18 @@
+{
+    "1": {
+        "title": "Aggregator💌",
+        "address": "http://127.0.0.1:5000/aggregator/receive",
+        "send_frequency": "5",
+        "destination_form": "sum",
+        "status": false,
+        "port": ""
+    },
+    "2": {
+        "title": "Aggregator2💌",
+        "address": "http://127.0.0.1:5000/aggregator/receive",
+        "send_frequency": "5",
+        "destination_form": "avg",
+        "status": false,
+        "port": ""
+    }
+}

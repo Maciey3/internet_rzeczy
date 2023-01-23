@@ -1,0 +1,38 @@
+{
+    "1": {
+        "request": "HTTP",
+        "title": "Komputer",
+        "address": " http://127.0.0.1:5000/receive",
+        "send_frequency": "5",
+        "MQTT_topic": "",
+        "dataset": "earnings.csv",
+        "status": false
+    },
+    "2": {
+        "request": "HTTP",
+        "title": "Telefon",
+        "address": "http://127.0.0.1:5000/receive",
+        "send_frequency": "2",
+        "MQTT_topic": "",
+        "dataset": "surnames_en.csv",
+        "status": false
+    },
+    "4": {
+        "request": "HTTP",
+        "title": "Siuruburu",
+        "address": "http://127.0.0.1:5000/receive",
+        "send_frequency": "11",
+        "MQTT_topic": "",
+        "dataset": "earnings.csv",
+        "status": false
+    },
+    "5": {
+        "request": "HTTP",
+        "title": "Termometr",
+        "address": "http://127.0.0.1:5000/receive",
+        "send_frequency": "10",
+        "MQTT_topic": "",
+        "dataset": "Dollar-billionaires-per-million-people.csv",
+        "status": false
+    }
+}

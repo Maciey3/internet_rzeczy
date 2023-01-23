@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles/style.css')}}">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="pb-12">
+    <!-- <style contenteditable style="display: block; height: 20px">
+        sadasd
+    </style> -->
+    <div class="main grid gap-16">
+        {% include 'nav.html' %}
+        <!-- Generators -->
+        <!-- <div class="customHr">
+            <span>Generators</span>
+        </div> -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-16 m-auto w-4/5">
+            {% for id, task in generators.items() %}
+            <div class="bg-indigo-400 h-60 rounded-xl py-12 px-4 grid grid-cols-1 items-center shadow-2xl relative">
+                <form class="contents" action="{{ url_for('genActivate', id=id) }}" method="GET">
+                    <button type="submit" class="absolute top-4 right-4 rounded-full text-blue-500 w-6 h-6 cursor-pointer
+                    {%if task['status'] == 1%}
+                        bg-green-400
+                    {%else%}
+                        bg-red-600
+                    {%endif%}
+                    "
+                    title="Włącz/Wyłącz"></button>
+                </form>
+                <div class="grid grid-cols-1">
+                    <p class="text-center font-bold text-white text-3xl">{{task['title']}}</p>
+                    <p class="text-center text-white">({{task['request']}})</p>
+                </div>
+                <div class="grid grid-cols-2 gap-8 px-8">
+                    <a href="{{ url_for('genShow', id=id) }}">
+                        <button class="button w-full bg-white h-10 rounded-xl bg-green-500 font-bold text-white hover:bg-green-600">Podgląd</button>
+                    </a>
+                    <form action="{{ url_for('genDelete') }}", method="POST">
+                        <input type="hidden" value="{{id}}" name="id"/>
+                        <button type="submit" class="button w-full bg-white h-10 rounded-xl bg-red-500 font-bold text-white hover:bg-red-600">Usuń</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Aggregators -->
+        <!-- <div class="customHr">
+            <span>Aggregators</span>
+        </div> -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-16 m-auto w-4/5">
+            {% for id, task in agregators.items() %}
+            <div class="bg-orange-300 h-60 rounded-xl py-12 px-4 grid grid-cols-1 items-center shadow-2xl relative">
+                <form class="contents" action="{{ url_for('aggrActivate', id=id) }}" method="GET">
+                    <button type="submit" class="absolute top-4 right-4 rounded-full w-6 h-6 cursor-pointer
+                    {%if task['status'] == 1%}
+                        bg-green-400
+                    {%else%}
+                        bg-red-600
+                    {%endif%}
+                    "
+                    title="Włącz/Wyłącz"></button>
+                </form>
+                <div class="grid grid-cols-1">
+                    <p class="text-center font-bold text-white text-3xl">{{task['title']}}</p>
+                    <p class="text-center text-white">(Aggregator)</p>
+                </div>
+                <div class="grid grid-cols-2 gap-8 px-8">
+                    <a href="{{ url_for('aggrShow', id=id) }}">
+                        <button class="button w-full bg-white h-10 rounded-xl bg-green-500 font-bold text-white hover:bg-green-600">Podgląd</button>
+                    </a>
+                    <form action="{{ url_for('aggrDelete') }}", method="POST">
+                        <input type="hidden" value="{{id}}" name="id"/>
+                        <button type="submit" class="button w-full bg-white h-10 rounded-xl bg-red-500 font-bold text-white hover:bg-red-600">Usuń</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Filters -->
+        <!-- <div class="customHr">
+            <span>Filters</span>
+        </div> -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-16 m-auto w-4/5">
+            {% for id, task in filters.items() %}
+            <div class="bg-rose-400 h-60 rounded-xl py-12 px-4 grid grid-cols-1 items-center shadow-2xl relative">
+                <form class="contents" action="{{ url_for('filterActivate', id=id) }}" method="GET">
+                    <button type="submit" class="absolute top-4 right-4 rounded-full w-6 h-6 cursor-pointer
+                    {%if task['status'] == 1%}
+                        bg-green-400
+                    {%else%}
+                        bg-red-600
+                    {%endif%}
+                    "
+                    title="Włącz/Wyłącz"></button>
+                </form>
+                <div class="grid grid-cols-1">
+                    <p class="text-center font-bold text-white text-3xl">{{task['title']}}</p>
+                    <p class="text-center text-white">(Filter)</p>
+                </div>
+                <div class="grid grid-cols-2 gap-8 px-8">
+                    <a href="{{ url_for('filterShow', id=id) }}">
+                        <button class="button w-full bg-white h-10 rounded-xl bg-green-500 font-bold text-white hover:bg-green-600">Podgląd</button>
+                    </a>
+                    <form action="{{ url_for('filterDelete') }}", method="POST">
+                        <input type="hidden" value="{{id}}" name="id"/>
+                        <button type="submit" class="button w-full bg-white h-10 rounded-xl bg-red-500 font-bold text-white hover:bg-red-600">Usuń</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</body>
+</html>

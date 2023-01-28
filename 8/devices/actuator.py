@@ -18,8 +18,19 @@ def startActuator(id, cfg, port):
     @app.route('/status/<changedStatus>', methods=['GET'])
     def changeStatus(changedStatus):
         global status
-        # global port
-        status[port] = changedStatus
+        # if request.json:
+        #     message = json.loads(request.json)
+        print(f"{colorama.Fore.LIGHTGREEN_EX}Data received")
+        if port not in status:
+            status[port] = 1
+        else:
+            if status[port] == 1:
+                status[port] = 0
+            else:
+                status[port] = 1
+
+        print(status)
+        return 'OK'
 
     @app.route('/history', methods=['GET'])
     def sendHistory():
@@ -30,6 +41,7 @@ def startActuator(id, cfg, port):
         starting = 20
         temp = starting
         while True:
+            global status
             print(temp)
             cfg.addElementToHistory(data=temp, seconds=True)
             if temp < starting:
@@ -43,7 +55,7 @@ def startActuator(id, cfg, port):
             else:
                 temp -= 1
 
-    changeStatus(True)
+    changeStatus(1)
     customThread(target=interval, cfgId=id, name='actuatorNested', args=(id, cfg, port)).start()
     print(f'{colorama.Fore.CYAN}Nested thread started [{cfg.title}]')
     app.run(port=port)

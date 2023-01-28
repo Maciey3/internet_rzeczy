@@ -1,5 +1,8 @@
 from flask import Flask, request
 import threading
+from datetime import datetime
+import requests
+import json
 import custom.logging
 from custom.cfg import Actuator
 from custom.customThread import customThread
@@ -30,26 +33,60 @@ app = Flask(__name__)
 def start(id):
     global ports
     cfg = Actuator.getCfgById(id)
-    port = getFreePort(ports)
-    cfg.insertPort(id, port)
+    if not cfg.port:
+        port = getFreePort(ports)
+        cfg.insertPort(id, port)
 
-    thread = customThread(target=startActuator, cfgId=id, name='actuator', args=(id, cfg, port))
-    thread.start()
-    print(f'{colorama.Fore.CYAN}Thread started [{cfg.title}]')
+        thread = customThread(target=startActuator, cfgId=id, name='actuator', args=(id, cfg, port))
+        thread.start()
+        print(f'{colorama.Fore.CYAN}Thread started [{cfg.title}]')
+        # message = {
+        #     'status': 1,
+        #     'date': datetime.now().strftime("%d.%m.%Y %H:%M:%S"),
+        #     'from': 'main'
+        # }
+        # if requests.get(f'http://127.0.0.1:{cfg.port}/status/1', json=json.dumps(message), timeout=10):
+        #     # print(f"{colorama.Fore.LIGHTGREEN_EX}({message['date']}) Data sent [{cfg.title}]")
+        #     pass
+        # else:
+        #     print(f"{colorama.Fore.LIGHTRED_EX}({message['date']}) Error")
+    else:
+        message = {
+            'status': 1,
+            'date': datetime.now().strftime("%d.%m.%Y %H:%M:%S"),
+            'from': 'main'
+        }
+        if requests.get(f'http://127.0.0.1:{cfg.port}/status/1', json=json.dumps(message), timeout=10):
+            # print(f"{colorama.Fore.LIGHTGREEN_EX}({message['date']}) Data sent [{cfg.title}]")
+            pass
+        else:
+            print(f"{colorama.Fore.LIGHTRED_EX}({message['date']}) Error")
     return 'OK'
 
 @app.route('/stop/<id>', methods=['POST'])
 def stop(id):
     cfg = Actuator.getCfgById(id)
-    cfg.deletePort(id)
+    message = {
+        'status': 0,
+        'date': datetime.now().strftime("%d.%m.%Y %H:%M:%S"),
+        'from': 'main'
+    }
+    if requests.get(f'http://127.0.0.1:{cfg.port}/status/0', json=json.dumps(message), timeout=10):
+        # print(f"{colorama.Fore.LIGHTGREEN_EX}({message['date']}) Data sent [{cfg.title}]")
+        pass
+    else:
+        print(f"{colorama.Fore.LIGHTRED_EX}({message['date']}) Error")
 
-    for thread in threading.enumerate():
-        if thread.name == 'actuator' and thread.cfgId == id:
-            thread.kill()
-            print(f'{colorama.Fore.YELLOW}Thread stopped [{cfg.title}]')
-        elif thread.name == 'generatorNested' and thread.cfgId == id:
-            thread.kill()
-            print(f'{colorama.Fore.YELLOW}Nested thread stopped [{cfg.title}]')
+    # cfg = Actuator.getCfgById(id)
+    # cfg.deletePort(id)
+    #
+    # for thread in threading.enumerate():
+    #     if thread.name == 'actuator' and thread.cfgId == id:
+    #         thread.kill()
+    #         print(f'{colorama.Fore.YELLOW}Thread stopped [{cfg.title}]')
+    #     elif thread.name == 'generatorNested' and thread.cfgId == id:
+    #         thread.kill()
+    #         print(f'{colorama.Fore.YELLOW}Nested thread stopped [{cfg.title}]')
 
     return 'OK'
 

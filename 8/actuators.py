@@ -1,16 +1,15 @@
 from flask import Flask, request
 import threading
 import custom.logging
-from custom.cfg import Generator
-from custom.parse import parse
+from custom.cfg import Actuator
 from custom.customThread import customThread
-from devices.generator import startGenerator
+from devices.actuator import startActuator
 import colorama
 colorama.init(autoreset=True)
 
 ports = []
 
-def getFreePort(ports, firstPort=7002, append=True):
+def getFreePort(ports, firstPort=6002, append=True):
     if ports:
         result = ports[-1]
     else:
@@ -30,26 +29,22 @@ app = Flask(__name__)
 @app.route('/start/<id>', methods=['POST'])
 def start(id):
     global ports
-    cfg = Generator.getCfgById(id)
+    cfg = Actuator.getCfgById(id)
     port = getFreePort(ports)
     cfg.insertPort(id, port)
 
-    thread = customThread(target=startGenerator, cfgId=id, name='generator', args=(id, cfg, port))
+    thread = customThread(target=startActuator, cfgId=id, name='actuator', args=(id, cfg, port))
     thread.start()
     print(f'{colorama.Fore.CYAN}Thread started [{cfg.title}]')
     return 'OK'
 
-    # cfg = Generator.getCfgById(id)
-    #
-    # thread = customThread(target=publish, cfgId=id, name='generator', args=(id, cfg))
-
 @app.route('/stop/<id>', methods=['POST'])
 def stop(id):
-    cfg = Generator.getCfgById(id)
+    cfg = Actuator.getCfgById(id)
     cfg.deletePort(id)
 
     for thread in threading.enumerate():
-        if thread.name == 'generator' and thread.cfgId == id:
+        if thread.name == 'actuator' and thread.cfgId == id:
             thread.kill()
             print(f'{colorama.Fore.YELLOW}Thread stopped [{cfg.title}]')
         elif thread.name == 'generatorNested' and thread.cfgId == id:
@@ -71,4 +66,4 @@ def status(id):
     else:
         return '0'
 
-app.run(port=8000)
+app.run(port=6001)

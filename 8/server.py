@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, url_for, redirect
 import requests
 import json
 from custom.cfg import Generator, Aggregator, Filter, Actuator
-from custom.history import createPlot
+from custom.history import createPlotHist, createPlotLine
 import custom.logging
 import colorama
 colorama.init(autoreset=True)
@@ -29,7 +29,7 @@ def receive():
 @app.route('/generator/show/<id>')
 def genShow(id):
     cfg = Generator.getCfgById(id)
-    graphJSON = createPlot(cfg.port)
+    graphJSON = createPlotHist(cfg.port)
 
     return render_template('generator/show.html', cfg=cfg, id=id, graphJSON=graphJSON)
 
@@ -128,7 +128,7 @@ def aggrCreate():
 @app.route('/aggregator/show/<id>')
 def aggrShow(id):
     cfg = Aggregator.getCfgById(id)
-    graphJSON = createPlot(cfg.port)
+    graphJSON = createPlotHist(cfg.port)
 
     return render_template('aggregator/show.html', cfg=cfg, id=id, graphJSON=graphJSON)
 
@@ -192,7 +192,7 @@ def filterCreate():
 @app.route('/filter/show/<id>')
 def filterShow(id):
     cfg = Filter.getCfgById(id)
-    graphJSON = createPlot(cfg.port)
+    graphJSON = createPlotHist(cfg.port)
 
     return render_template('filter/show.html', cfg=cfg, id=id, graphJSON=graphJSON)
 
@@ -255,7 +255,7 @@ def actuatorCreate():
 @app.route('/actuator/show/<id>')
 def actuatorShow(id):
     cfg = Actuator.getCfgById(id)
-    graphJSON = createPlot(cfg.port)
+    graphJSON = createPlotLine(cfg.port)
 
     return render_template('actuator/show.html', cfg=cfg, id=id, graphJSON=graphJSON)
 
@@ -298,9 +298,9 @@ def actuatorActivate(id):
     cfg.update(id, updateStatus=True)
     # print(cfg)
     if cfg.status:
-        requests.post(f'http://127.0.0.1:9001/start/{id}')
+        requests.post(f'http://127.0.0.1:6001/start/{id}')
     else:
-        requests.post(f'http://127.0.0.1:9001/stop/{id}')
+        requests.post(f'http://127.0.0.1:6001/stop/{id}')
 
     return redirect(url_for('index'))
 

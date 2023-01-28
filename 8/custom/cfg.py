@@ -61,8 +61,10 @@ class Configuration:
     def deletePort(self, id):
         self.update(id=id, updatePort=-1)
 
-    def addElementToHistory(self, data):
+    def addElementToHistory(self, data, seconds=False):
         date = datetime.datetime.now().strftime("%d.%m.%Y %H:%M")
+        if seconds:
+            date = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
         if date in self.history:
             self.history[date].append(data)

@@ -3,7 +3,7 @@
         "title": "Kaloryfer 🔥",
         "address": "http://127.0.0.1:5000/receive",
         "temp_target": "100",
-        "status": false,
-        "port": ""
+        "status": true,
+        "port": 6002
     }
 }
